@@ -27,3 +27,4 @@ frontend/*.local
 
 
 # ---------------------------- backend related ignores -----------------------------
+env
