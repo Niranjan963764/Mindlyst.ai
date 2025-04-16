@@ -32,11 +32,31 @@ const QuestionAndAnswer = () => {
         setAnswers(newAnswers);
     };
 
+    const sendTextToDjango = async (userText) => {
+        try {
+          const response = await fetch("http://localhost:8000/backend/text/", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ texts: answers }),
+          });
+      
+          const result = await response.json();
+          console.log("Response from Django:", result);
+        } catch (error) {
+          console.error("Error:", error);
+        }
+    };
+      
+
     const handleFinish = () => {
         console.log("Quiz completed! Answers:", answers);
         alert("Quiz finished! Check the console for your answers.");
+        sendTextToDjango()
         // You can handle form submission or further processing here.
     };
+    
     return (
         <div className="flex flex-col items-center p-4 border shadow-lg mt-36 mb-36 ml-48 mr-48">
             <p className="mb-4">Question {currentQuestionIndex + 1} of {questions.length}</p>
