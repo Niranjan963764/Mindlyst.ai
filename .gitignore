@@ -28,3 +28,10 @@ frontend/*.local
 
 # ---------------------------- backend related ignores -----------------------------
 env
+db.sqlite3
+__pycache__/
+staticfiles/
+.env
+venv/
+*.pkl
+media/
