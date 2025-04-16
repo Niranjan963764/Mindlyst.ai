@@ -2,11 +2,12 @@
 import React from 'react';
 
 const Footer = () => (
-  <footer className="py-6 bg-gray-900 text-center text-gray-400">
+  <footer className="py-6 bg-gradient-to-r from-gray-900 via-black to-gray-900 text-center text-gray-400">
     <div className="container mx-auto">
-      <p>&copy; 2024 MindLyst.ai. All rights reserved.</p>
+      <p className="text-sm tracking-wide">&copy; 2024 <span className="text-cyan-500">MindLyst.ai</span>. All rights reserved.</p>
     </div>
   </footer>
 );
+
 
 export default Footer;

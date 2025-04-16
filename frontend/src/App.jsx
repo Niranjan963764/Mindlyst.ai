@@ -5,7 +5,7 @@ import Home from "./components/Home";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router";
 import QuestionAndAnswer from "./components/QuestionAndAnswer";
-
+import './App.css'
 
 
 const App = () => {
