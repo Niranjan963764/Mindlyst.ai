@@ -1,5 +1,7 @@
 import React from 'react';
 import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 const AudioVideo = () => {
   // STATES -------------------------
@@ -28,6 +30,13 @@ const AudioVideo = () => {
   // A ref to control continuous recording (i.e. whether to restart the recorder).
   const shouldContinueRef = useRef(false);
 
+  const [predictionObtained, setPredictionObtained] = useState(false);
+
+  const navigate = useNavigate();
+  const routeToNextPage = () => {
+    navigate('/dashboard')
+    window.location.reload()
+}
   useEffect(() => {
     // Establish a WebSocket connection and set event handlers.
     socketRef.current = new WebSocket(`ws://${window.location.hostname}:8000/ws/audio_video/`);
@@ -169,10 +178,10 @@ const AudioVideo = () => {
     // Stop all tracks on the media stream to release the device.
     if (streamRef.current) {
       streamRef.current.getTracks().forEach((track) => {
-        console.log('Stopping track:', track.kind, track.readyState, track.enabled);
+        // console.log('Stopping track:', track.kind, track.readyState, track.enabled);
         track.stop();
-        track.enabled = false
-        console.log('Stopping track:', track.kind, track.readyState, track.enabled);
+        // track.enabled = false
+        // console.log('Stopping track:', track.kind, track.readyState, track.enabled);
       });
       streamRef.current = null; // Clear the reference
     }
@@ -189,11 +198,12 @@ const AudioVideo = () => {
     if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
       socketRef.current.send(JSON.stringify({ type: 'recording_stopped' }));
     }
+    setPredictionObtained(true)
   };
 
   return (
     <div className="flex justify-center items-center h-screen w-screen bg-gray-900 font-sans px-4 py-8">
-      <div className="bg-gray-800 shadow-2xl rounded-2xl p-6 w-full max-w-md transition-all duration-300 ease-in-out border border-gray-700 text-white">
+      <div className="bg-gray-800 mt-10 shadow-2xl rounded-2xl p-6 w-full max-w-md transition-all duration-300 ease-in-out border border-gray-700 text-white">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-semibold text-white">Real-Time Emotion Tracker</h2>
           <span className={`flex items-center gap-2 text-sm font-medium ${connected ? 'text-green-400' : 'text-red-400'}`}>
@@ -206,7 +216,7 @@ const AudioVideo = () => {
           {isRecording ? (
             <button
               onClick={stopRecording}
-              // className="bg-red-600 hover:bg-red-700 active:bg-red-800 text-white px-6 py-2 rounded-lg font-semibold shadow-md transition duration-200"
+              className="bg-red-600 hover:bg-red-700 active:bg-red-800 text-white px-6 py-2 rounded-lg font-semibold shadow-md transition duration-200"
               style={{backgroundColor : 'red'}}
             >
               Stop Recording
@@ -215,11 +225,11 @@ const AudioVideo = () => {
             <button
               onClick={startNewRecorder}
               disabled={!connected}
-              // className={` 
-              // ${connected
-              //     ? 'bg-green-600 hover:bg-green-700 active:bg-green-800'
-              //     : 'bg-gray-500 cursor-not-allowed'
-              //   } text-white font-semibold px-6 py-2 rounded-lg shadow-md transition duration-200`}
+              className={` 
+              ${connected
+                  ? 'bg-green-600 hover:bg-green-700 active:bg-green-800'
+                  : 'bg-gray-500 cursor-not-allowed'
+                } text-white font-semibold px-6 py-2 rounded-lg shadow-md transition duration-200`}
               style={{backgroundColor : 'green'}}
             >
               Start Recording
@@ -267,12 +277,23 @@ const AudioVideo = () => {
           </div>
         </div>
 
-        {mediaURL && (
+        {predictionObtained && (
+  <div className="flex justify-center mb-10">
+    <button
+      onClick={routeToNextPage}
+      className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-6 rounded-full transition"
+    >
+      Proceed to Dashboard
+    </button>
+  </div>
+)}
+
+        {/* {mediaURL && (
           <div className="mt-6">
             <img src={mediaURL} alt="Recorded video placeholder" className="w-full rounded-lg shadow-md" />
             <p className="text-xs text-gray-400 text-center mt-2">Recorded Audio + Video</p>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );

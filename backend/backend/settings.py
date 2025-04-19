@@ -37,8 +37,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    # "daphne",
-    # "channels",
+    "daphne",
+    "channels",
     "corsheaders",
     'django.contrib.admin',
     'django.contrib.auth',
@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'rest_framework',
 
     # app
-    'api',
+    'audio_video',
+    'api'
 ]
 
 MIDDLEWARE = [
@@ -143,3 +144,14 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  # Your React app origin
     # Add other allowed domains here
 ]
+
+# asgi settings
+ASGI_APPLICATION = 'backend.asgi.application'
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}

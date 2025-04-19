@@ -1,8 +1,13 @@
 @import "tailwindcss";
 
+html{
+  scrollbar-width: none;
+}
 body{
   background-color: black;
 }
+
+
 
 /* #root {
   max-width: 1280px;
