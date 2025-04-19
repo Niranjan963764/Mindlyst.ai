@@ -6,7 +6,8 @@ import Home from "./components/Home";
 import { BrowserRouter as Router, Routes, Route } from "react-router";
 import QuestionAndAnswer from "./components/QuestionAndAnswer";
 import './App.css'
-
+import AudioVideo from "./components/AudioVideo";
+import MultimodalDashboard from "./components/MultimodalDashboard"
 
 const App = () => {
 
@@ -36,6 +37,8 @@ const App = () => {
         {/* <Route path="/" element={<Home />} /> */}
         <Route path="/home" element={<Home />} />
         <Route path="/test" element={<QuestionAndAnswer />} />
+        <Route path="/real-time" element={<AudioVideo />} />
+        <Route path="/dashboard" element={<MultimodalDashboard />} />
       </Routes>
       <Footer />
     </Router>

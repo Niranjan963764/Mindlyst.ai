@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
 import Results from './Results';
+import { useNavigate } from 'react-router-dom';
 
 const QuestionAndAnswer = () => {
   const questions = [
@@ -20,8 +21,10 @@ const QuestionAndAnswer = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState([]);
 
-  const [showResults, setShowResults] = useState(false);
+  // const [showResults, setShowResults] = useState(false);
+  const [predictionObtained, setPredictionObtained] = useState(false);
   const [predictions, setPredictions] = useState([]);
+  const navigate = useNavigate();
 
 
   const handleNext = () => {
@@ -51,11 +54,16 @@ const QuestionAndAnswer = () => {
       const result = await response.json();
       console.log("Response from Django:", result);
       setPredictions(result.predictions)
-      setShowResults(true);
+      // setShowResults(true);
+      setPredictionObtained(true)
     } catch (error) {
       console.error("Error:", error);
     }
   };
+
+  const routeToNextPage = () => {
+      navigate('/real-time')
+  }
 
 
   const handleFinish = () => {
@@ -67,7 +75,7 @@ const QuestionAndAnswer = () => {
 
   return (
     <>
-      {!showResults ? (
+      {/* {!showResults ? ( */}
         <div className="flex flex-col items-center p-8 mt-40 mb-36 mx-auto max-w-3xl bg-gray-900 rounded-xl shadow-2xl border border-gray-700 text-white">
           <p className="mb-2 text-sm text-cyan-400">
             Question {currentQuestionIndex + 1} of {questions.length}
@@ -100,9 +108,20 @@ const QuestionAndAnswer = () => {
             )}
           </div>
         </div>
-      ) : (
+      {/* ) : (
         <Results predictions={predictions} answers={answers} />
       )}
+      */}
+{predictionObtained && (
+  <div className="flex justify-center mb-10">
+    <button
+      onClick={routeToNextPage}
+      className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-6 rounded-full transition"
+    >
+      Proceed to Real-Time Test
+    </button>
+  </div>
+)}
     </>
   );
   
