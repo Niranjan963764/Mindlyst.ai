@@ -40,8 +40,8 @@ const AudioVideo = () => {
 
   const navigate = useNavigate();
   const routeToNextPage = () => {
-    // console.log("audio: ", audioPredictionsArray)
-    // console.log("video: ", videoPredictionsArray)
+    console.log("audio: ", audioPredictionsArray)
+    console.log("video: ", videoPredictionsArray)
     navigate('/dashboard')
     window.location.reload()
   }
@@ -288,7 +288,7 @@ const AudioVideo = () => {
         </div>
 
         {predictionObtained && (
-          <div className="flex justify-center mb-10">
+          <div className="flex justify-center mt-10">
             <button
               onClick={routeToNextPage}
               className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-6 rounded-full transition"
