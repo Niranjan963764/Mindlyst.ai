@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import useStore from '../store/useStore';
 
 const AudioVideo = () => {
   // STATES -------------------------
@@ -32,11 +32,19 @@ const AudioVideo = () => {
 
   const [predictionObtained, setPredictionObtained] = useState(false);
 
+  const setAudioPredictions = useStore((state) => state.setAudioPredictions)
+  const setVideoPredictions = useStore((state) => state.setVideoPredictions)
+  const audioPredictionsArray = useStore((state) => state.audioPredictionsArray)
+  const videoPredictionsArray = useStore((state) => state.videoPredictionsArray)
+   
+
   const navigate = useNavigate();
   const routeToNextPage = () => {
+    // console.log("audio: ", audioPredictionsArray)
+    // console.log("video: ", videoPredictionsArray)
     navigate('/dashboard')
     window.location.reload()
-}
+  }
   useEffect(() => {
     // Establish a WebSocket connection and set event handlers.
     socketRef.current = new WebSocket(`ws://${window.location.hostname}:8000/ws/audio_video/`);
@@ -67,8 +75,10 @@ const AudioVideo = () => {
           const videoResult = data.prediction.video
           setCurrentChunkAudioPrediction(audioResult)
           setCurrentChunkVideoPrediction(videoResult)
-          audioOutputs.push(audioResult)
-          videoOutputs.push(videoResult)
+          // audioOutputs.push(audioResult)
+          // videoOutputs.push(videoResult)
+          setAudioPredictions(audioResult)
+          setVideoPredictions(videoResult)
         }
         else if (data.message) {
           console.log("Server message:", data.message)
@@ -217,7 +227,7 @@ const AudioVideo = () => {
             <button
               onClick={stopRecording}
               className="bg-red-600 hover:bg-red-700 active:bg-red-800 text-white px-6 py-2 rounded-lg font-semibold shadow-md transition duration-200"
-              style={{backgroundColor : 'red'}}
+              style={{ backgroundColor: 'red' }}
             >
               Stop Recording
             </button>
@@ -230,7 +240,7 @@ const AudioVideo = () => {
                   ? 'bg-green-600 hover:bg-green-700 active:bg-green-800'
                   : 'bg-gray-500 cursor-not-allowed'
                 } text-white font-semibold px-6 py-2 rounded-lg shadow-md transition duration-200`}
-              style={{backgroundColor : 'green'}}
+              style={{ backgroundColor: 'green' }}
             >
               Start Recording
             </button>
@@ -278,15 +288,15 @@ const AudioVideo = () => {
         </div>
 
         {predictionObtained && (
-  <div className="flex justify-center mb-10">
-    <button
-      onClick={routeToNextPage}
-      className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-6 rounded-full transition"
-    >
-      Proceed to Dashboard
-    </button>
-  </div>
-)}
+          <div className="flex justify-center mb-10">
+            <button
+              onClick={routeToNextPage}
+              className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-6 rounded-full transition"
+            >
+              Proceed to Dashboard
+            </button>
+          </div>
+        )}
 
         {/* {mediaURL && (
           <div className="mt-6">
