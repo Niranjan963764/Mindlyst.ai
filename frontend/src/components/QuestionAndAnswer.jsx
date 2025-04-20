@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import Results from './Results';
 import { useNavigate } from 'react-router-dom';
+import useStore from '../store/useStore';
 
 const QuestionAndAnswer = () => {
   const questions = [
@@ -25,6 +26,8 @@ const QuestionAndAnswer = () => {
   const [predictionObtained, setPredictionObtained] = useState(false);
   const [predictions, setPredictions] = useState([]);
   const navigate = useNavigate();
+
+  const setTextPredictions = useStore((state) => state.setTextPredictions)
 
 
   const handleNext = () => {
@@ -56,6 +59,8 @@ const QuestionAndAnswer = () => {
       setPredictions(result.predictions)
       // setShowResults(true);
       setPredictionObtained(true)
+      setTextPredictions(result["predictions"])
+      console.log("Result Array:", result["predictions"]);
     } catch (error) {
       console.error("Error:", error);
     }
