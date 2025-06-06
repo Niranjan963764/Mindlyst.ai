@@ -35,3 +35,6 @@ staticfiles/
 venv/
 *.pkl
 media/
+
+*.rar
+requirements.txt
