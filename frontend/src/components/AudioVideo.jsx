@@ -133,7 +133,7 @@ const AudioVideo = () => {
         if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
           mediaRecorderRef.current.stop();
         }
-      }, 1000);
+      }, 3000);
     } catch (error) {
       console.error('Error starting MediaRecorder:', error);
     }
