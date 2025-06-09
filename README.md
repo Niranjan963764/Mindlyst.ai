@@ -32,4 +32,5 @@
   - `docker-compose up` => to build images + start container.
   - `docker-compose down` => stop and remove container, volume, network
   - `docker-compose stop` => stop running container. but container, volume, network intact
-  - `docker-compose start` => to start previously stop containers without rebuilding
+  - `docker-compose start` => to start previously stop containers without rebuilding.
+- Now make the port public for the api to access requests
