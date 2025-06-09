@@ -23,6 +23,7 @@
 ---
 ### Text API
 - if using it on the hugging face then ensure your codespace is actively running
+- create requirements.txt file, add modules to it, and add commit as init! indicating run this file before running any other code
 
 ---
 ### Video API
@@ -34,3 +35,8 @@
   - `docker-compose stop` => stop running container. but container, volume, network intact
   - `docker-compose start` => to start previously stop containers without rebuilding.
 - Now make the port public for the api to access requests
+
+### Datasets Used
+1. https://huggingface.co/datasets/Kanakmi/mental-disorders
+2. emotion dataset - kaggle
+3. Reddit mental health dataset
