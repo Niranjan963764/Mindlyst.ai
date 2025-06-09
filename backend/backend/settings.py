@@ -16,6 +16,8 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 HUGGINGFACE_API_KEY = os.environ.get('HUGGINGFACE_API_KEY')
+HUGGINGFACE_REPO_NAME = os.environ.get('HUGGINGFACE_REPO_NAME')
+GITHUB_CODESPACE_VIDEO_API = os.environ.get('GITHUB_CODESPACE_VIDEO_API')
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.

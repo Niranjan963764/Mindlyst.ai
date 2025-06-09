@@ -1,8 +1,11 @@
 import requests
+from django.conf import settings
+
+video_url = settings.GITHUB_CODESPACE_VIDEO_API
 
 def predict_video_emotion(path):
     try:
-        url = "https://urban-space-guide-jv4jrjjqq79cw65-8000.app.github.dev/predict"
+        url = video_url
         with open(path, "rb") as f:
             files = {"file": ("chunk.mp4", f, "video/mp4")}
             resp = requests.post(url, files=files)

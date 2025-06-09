@@ -16,8 +16,9 @@ def textProcessing(request):
         # print(type(json_data))
 
         hf_api_key = settings.HUGGINGFACE_API_KEY
+        hf_repo_name = settings.HUGGINGFACE_REPO_NAME
 
-        client = Client("abhi1234521/distill_bert_model", hf_token=hf_api_key)
+        client = Client(hf_repo_name, hf_token=hf_api_key)
         result = client.predict(
             json_input_data = json_data,
             api_name="/predict"
