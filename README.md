@@ -1,3 +1,6 @@
+#Mindlyst.ai 
+A collaborative effort to address a mental health issue in person
+
 # Details about folders
 - **frontend**:- contains frontend code
 - **backend**:- contains backend code
