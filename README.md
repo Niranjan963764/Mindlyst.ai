@@ -1,5 +1,5 @@
-#Mindlyst.ai 
-A collaborative effort to address a mental health issue in person
+# Mindlyst.ai 
+A collaborative effort to address a mental health issue which is a rising concern in fastly developing world
 
 # Details about folders
 - **frontend**:- contains frontend code
